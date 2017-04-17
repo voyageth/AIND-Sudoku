@@ -3,11 +3,25 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: In one unit(col or row or 3x2 square or diagonal), naked twins's 2 values are only for naked twins's. So, other boxes are not available contain that values. So, remove naked twins's 2 values from other boxes in that unit.
+A: 
+[Naked twins](http://www.sudokudragon.com/sudokustrategy.htm#XL2104) is sudoku exclude possibilities strategy.
+![after](https://d17h27t6h515a5.cloudfront.net/topher/2017/January/5877cc78_naked-twins-2/naked-twins-2.png)
+"F3" and "I3" is naked twins. 
+Some unit that contains that twins(column 3), other peer can not have naked twins's values. 
+As a result, "D3" and "E3" can not have {2,3}.
+We reduce the number of possibilities for "D3" and "E3" and solve the naked twins problem.
+
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: Add diagonal unit to constraint propagation target. After that, all functions should be check diagonal unit also. In code, add diagonal unit to unitlist is that. 
+A: Add diagonal constraint to main diagonal boxes. 
+The two main diagonals, the numbers 1 to 9 should all appear exactly once
+For example, "A1" can has {1, 2, 4, 9} and "A9" can has {2, 6, 8}.
+With diagonal constraint, If E5 has value 2, "A1" and "A9" can not has value 2. 
+So "A1"'s possibilities are {1,4,9} and "A9"'s are {6,8}.
+We reduce the number of possibilities for "A1" and "A9" by diagonal constraint.
+![diagonal](https://d17h27t6h515a5.cloudfront.net/topher/2017/January/587467eb_diagonal-sudoku/diagonal-sudoku.png)
+ 
 
 ### Install
 
@@ -42,3 +56,4 @@ To submit your code to the project assistant, run `udacity submit` from within t
 
 This process will create a zipfile in your top-level directory named sudoku-<id>.zip.  This is the file that you should submit to the Udacity reviews system.
 
+q

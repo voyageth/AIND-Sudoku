@@ -52,15 +52,19 @@ def naked_twins(values):
 
     # Find all instances of naked twins
     # Eliminate the naked twins as possibilities for their peers
+
+    # iterate all units
     for unit in unitlist:
         for box_a in unit:
             for box_b in unit:
-                if box_a != box_b:
-                    if len(values[box_a]) == 2 and values[box_a] == values[box_b]:
-                        other_boxes = [peer_box for peer_box in unit if peer_box != box_a and peer_box != box_b]
-                        for digit in values[box_a]:
-                            for peer in other_boxes:
-                                values[peer] = values[peer].replace(digit,'')
+                # find naked twins. box_a and box_b is same value and length 2.
+                if box_a != box_b and len(values[box_a]) == 2 and values[box_a] == values[box_b]:
+                    # aggregate all boxes that is not naked_twins.
+                    other_boxes = [peer_box for peer_box in unit if peer_box != box_a and peer_box != box_b]
+                    for digit in values[box_a]:
+                        for peer in other_boxes:
+                            # remove all naked twins's values from other boxes.
+                            values[peer] = values[peer].replace(digit,'')
 
 
     return values
@@ -147,7 +151,13 @@ def reduce_puzzle(values):
     return values
 
 def search(values):
-    "Using depth-first search and propagation, try all possible values."
+    """
+    Using depth-first search and propagation, try all possible values.
+    Input: A sudoku in dictionary form.
+    Output: Search result.
+            If search success, A sudoku in dictionary form.
+            If search fail, False.
+    """
     # First, reduce the puzzle using the previous function
     values = reduce_puzzle(values)
     if values is False:
