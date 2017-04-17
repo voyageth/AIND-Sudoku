@@ -174,7 +174,6 @@ def solve(grid):
     Returns:
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
-    unitlist = row_units + column_units + square_units + diag_units
     values = grid_values(grid)
     return search(values)
 
